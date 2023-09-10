@@ -5,10 +5,12 @@
 
 void Cargar (int Vector[]); //Para cargar el vector con numeros al azar
 void Mostrar (int Vector[]); //Para mostrar el contenido del vector
-bool Repetido (int Num, int Vector[],int i); //Saca los numeros repetidos del vector
+void ContRepetido (int Vector[]);
+bool SinRepetidos (int Num, int Vector[],int i); //Saca los numeros repetidos del vector
 
 int main(){
     int Vector[10], Vector2[10], opc, Num;
+
     do{
 
     printf("\tMENU DE OPCIONES\n");
@@ -29,30 +31,41 @@ int main(){
     srand(time(NULL));
     Cargar(Vector);
     Cargar(Vector2);
-    switch(opc){
+    switch(opc)
+    {
+        case 1:
+            system("cls");
+            printf("\t  Vector\n");
+            Mostrar(Vector);
+            ContRepetido(Vector);
+            printf("\n\t  Vector 2\n");
+            Mostrar(Vector);
+            ContRepetido(Vector);
 
-case 2:
-        system("cls");
-        for(int i=0;i<10;i++){
-            Num=Vector[i];
-            while(Repetido(Num,Vector,i)){
+            break;
 
-                Num=rand()%16+20;
+        case 2:
+            system("cls");
+            for(int i=0;i<10;i++){
+                Num=Vector[i];
+                while(SinRepetidos(Num,Vector,i)){
 
-        }
-            Vector[i]=Num;
-        }
-        for(int i=0;i<10;i++){
-            Num=Vector2[i];
-            while(Repetido(Num,Vector2,i)){
+                    Num=rand()%16+20;
 
-                Num=rand()%16+20;
-
+                }
+                Vector[i]=Num;
             }
-            Vector2[i]=Num;
-        }
-        Mostrar(Vector);
-        Mostrar(Vector2);
+            for(int i=0;i<10;i++){
+                Num=Vector2[i];
+                while(SinRepetidos(Num,Vector2,i)){
+
+                    Num=rand()%16+20;
+
+                }
+                Vector2[i]=Num;
+            }
+            Mostrar(Vector);
+            Mostrar(Vector2);
         break;
 
     }
@@ -77,7 +90,7 @@ void Mostrar (int Vector[10]){
     printf("\n");
 }
 
-bool Repetido (int Num, int Vector[10],int i){
+bool SinRepetidos (int Num, int Vector[10],int i){
     int j;
     for(j=0;j<i;j++){
 
@@ -86,4 +99,19 @@ bool Repetido (int Num, int Vector[10],int i){
         }
     }
     return false;
+}
+
+void ContRepetido(int Vector[10])
+{
+int conteo[16] = {0};
+
+    for(int i = 0; i < 10; i++) {
+        conteo[Vector[i] - 20]++;
+    }
+
+    for(int i = 0; i < 16; i++) {
+        if (conteo[i] > 0) {
+            printf("El numero %d se repite %d veces\n", i + 20, conteo[i]);
+        }
+    }
 }
