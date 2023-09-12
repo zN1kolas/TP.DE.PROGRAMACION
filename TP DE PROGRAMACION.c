@@ -7,10 +7,12 @@ void Cargar (int Vector[]); //Para cargar el vector con numeros al azar
 void Mostrar (int Vector[]); //Para mostrar el contenido del vector
 void ContRepetido (int Vector[]); //Cuenta cuantas veces se repite el numero en el vector
 bool SinRepetidos (int Num, int Vector[],int i); //Saca los numeros repetidos del vector
-void Interseccion (int Vector[], int Vector2[], int *cont, int Vector3[]);
+void Interseccion (int Vector[], int Vector2[], int *cont, int Vector3[]); //Muestra la interseccion entre los vectores
+void UnionVectores(int Vector[], int Vector2[], int Vector4[]); //Muestra la union entre los vectores
+void Limpiar (int *cont, int Vector[*cont]);//Para limpiar el vector que contiene las intersecciones y muestre siempre lo mismo
 
 int main(){
-    int Vector[10], Vector2[10], Vector3[10], opc, Num, cont=0;
+    int Vector[10], Vector2[10], Vector3[10], Vector4[20], opc, Num, cont=0;
     srand(time(NULL));
     Cargar(Vector);
     Cargar(Vector2);
@@ -76,11 +78,24 @@ int main(){
                 }
                 Mostrar(Vector2);
                 break;
+            case 3:
+                system("cls");
+                printf("\t  Vector\n");
+                Mostrar(Vector);
+                printf("\n\t  Vector 2\n");
+                Mostrar(Vector2);
+                UnionVectores(Vector, Vector2, Vector4);
+                break;
             case 4:
                 system("cls");
+                printf("\t  Vector\n");
+                Mostrar(Vector);
+                printf("\n\t  Vector 2\n");
+                Mostrar(Vector2);
                 Limpiar(&cont, Vector3);
                 Interseccion(Vector,Vector2,&cont, Vector3);
-
+                break;
+            case 5:
                 break;
             case 7:
                 break;
@@ -88,7 +103,7 @@ int main(){
     }
     if (opc !=7)
     {
-        system("pause");
+        printf("\n"); system("pause");
         system("cls");
     }
 
@@ -155,7 +170,7 @@ void Interseccion (int Vector[10], int Vector2[10], int *cont, int Vector3[*cont
             }
         }
     }
-    printf("Interseccion entre los vectores: \n");
+    printf("\nInterseccion entre los vectores: \n");
     for(int i=0;i<*cont;i++)
     {
 
@@ -172,4 +187,52 @@ void Limpiar (int *cont, int Vector[*cont])
         Vector[i]=0;
     }
     *cont=0;
+}
+
+void UnionVectores (int Vector[10], int Vector2[10], int Vector4[20]){
+    int opc, acum=0;
+    for(int i=0; i<10; i++)
+    {
+        for(int j=0; j<10; j++)
+        {
+            opc=0;
+            if(Vector[i]==Vector2[j])
+            {
+                opc=1;
+                break;
+            }
+        }
+
+        if(opc==0)
+            {
+                Vector4[acum]=Vector[i];
+                acum=acum+1;
+            }
+
+    }
+    for(int i=0; i<10; i++)
+    {
+
+        for(int j=0; j<10; j++)
+        {
+            opc=0;
+            if(Vector2[i]==Vector[j])
+            {
+                opc=1;
+                break;
+            }
+        }
+
+        if(opc==0)
+            {
+                Vector4[acum]=Vector2[i];
+                acum=acum+1;
+            }
+    }
+    printf("\nUnion entre los vectores:\n");
+    for(int i=0; i<acum; i++)
+    {
+        printf("%d ",Vector4[i]);
+    }
+    printf("\n");
 }
