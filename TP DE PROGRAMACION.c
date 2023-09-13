@@ -9,7 +9,8 @@ void ContRepetido (int Vector[]); //Cuenta cuantas veces se repite el numero en 
 bool SinRepetidos (int Num, int Vector[],int i); //Saca los numeros repetidos del vector
 void Interseccion (int Vector[], int Vector2[], int *cont, int Vector3[]); //Muestra la interseccion entre los vectores
 void UnionVectores(int Vector[], int Vector2[], int Vector4[]); //Muestra la union entre los vectores
-void Limpiar (int *cont, int Vector[*cont]);//Para limpiar el vector que contiene las intersecciones y muestre siempre lo mismo
+void Limpiar (int *cont, int Vector[*cont]); //Para limpiar el vector que contiene las intersecciones y muestre siempre lo mismo
+void RestaVectores(int Vector[], int Vector2[], int Vector4[]); //Muestra el vector sin los numeros que coincidan con el otro vector
 
 int main(){
     int Vector[10], Vector2[10], Vector3[10], Vector4[20], opc, Num, cont=0;
@@ -96,6 +97,22 @@ int main(){
                 Interseccion(Vector,Vector2,&cont, Vector3);
                 break;
             case 5:
+                system("cls");
+                printf("\t  Vector\n");
+                Mostrar(Vector);
+                printf("\n\t  Vector 2\n");
+                Mostrar(Vector2);
+                printf("\nLa resta A - B:\n");
+                RestaVectores(Vector, Vector2, Vector4);
+                break;
+            case 6:
+                system("cls");
+                printf("\t  Vector\n");
+                Mostrar(Vector);
+                printf("\n\t  Vector 2\n");
+                Mostrar(Vector2);
+                printf("\nLa resta B - A:\n");
+                RestaVectores(Vector2, Vector, Vector4);
                 break;
             case 7:
                 break;
@@ -236,3 +253,39 @@ void UnionVectores (int Vector[10], int Vector2[10], int Vector4[20]){
     }
     printf("\n");
 }
+
+void RestaVectores(int Vector[10], int Vector2[10], int Vector4[20])
+{
+    for(int i=0; i<20; i++)
+    {
+        Vector4[i]=0;
+    }
+
+    int opc, acum=0;
+    for(int i=0; i<10; i++)
+    {
+        for(int j=0; j<10; j++)
+        {
+            opc=0;
+            if(Vector[i]==Vector2[j])
+            {
+                opc=1;
+                break;
+            }
+        }
+
+        if(opc==0)
+            {
+                Vector4[acum]=Vector[i];
+                acum=acum+1;
+            }
+
+    }
+
+    for(int i=0; i<acum; i++)
+    {
+        printf("%d ",Vector4[i]);
+    }
+    printf("\n");
+}
+
