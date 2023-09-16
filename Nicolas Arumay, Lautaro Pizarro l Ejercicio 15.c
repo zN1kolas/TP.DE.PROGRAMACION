@@ -3,20 +3,16 @@
 #include <string.h>
 #include <time.h>
 
+void MateriasPromedio (int Notas[3][5], float Suma, float Promedios[]);
+void PorcenMaterias (int Notas[3][5], int cont, float Porcentaje[]);
+
 int main()
 {
     char Materias[5][20]={"Matematicas", "Lengua", "Ingles", "Geografia", "Biologia"};
     char Trim[3][10]={"Trim 1", "Trim 2", "Trim 3"};
-    int Alumnos, cont, Notas[3][5], j=0;
+    int cont, Notas[3][5], j=0;
     char Nombre[10];
     float Suma=0, Promedios[4], Porcentaje[3], Suma1=0;
-    printf("Ingresa la cantidad de alumnos\n");
-    fflush(stdin);
-    scanf("%d", &Alumnos);
-    system("cls");
-    for(int i=0; i<Alumnos; i++)
-    {
-        j=0;
 
         printf("Ingrese su nombre: \n");
         fflush(stdin);
@@ -32,6 +28,7 @@ int main()
                 Notas[i][j]= rand()%10+1;
             }
         }
+        printf("\n");
         //Imprimir tabla
         for(int i=0; i<5; i++)
         {
@@ -52,8 +49,8 @@ int main()
         }
 
         //Promedios
-        Promedio(Notas, Suma, Promedios);
-        Porcentajs(Notas, cont, Porcentaje);
+        MateriasPromedio(Notas, Suma, Promedios);
+        PorcenMaterias(Notas, cont, Porcentaje);
 
 
 
@@ -69,21 +66,16 @@ int main()
         printf("Trim 1: %2.f%c\n", Porcentaje[0], 37);
         printf("Trim 2: %2.f%c\n", Porcentaje[1], 37);
         printf("Trim 3: %2.f%c\n", Porcentaje[2], 37);
-        for(int i=0; i<4; i++)
-        {
-            Suma1=Promedios[i];
-        }
+
         printf("\nc)\n");
-        printf("Promedio general: %.1f\n", Suma1/5);
+        PorcenGeneral(Suma1, Promedios);
         system("pause");
         system("cls");
 
 
     }
 
-}
-
-void Promedio(int Notas[3][5], float Suma, float Promedios[4])
+void MateriasPromedio(int Notas[3][5], float Suma, float Promedios[4])
 {
     int j=0;
         while(j<5)
@@ -98,7 +90,7 @@ void Promedio(int Notas[3][5], float Suma, float Promedios[4])
         }
 }
 
-void Porcentajs (int Notas[3][5], int cont, float Porcentaje[4])
+void PorcenMaterias(int Notas[3][5], int cont, float Porcentaje[4])
 {
     int j=0;
         while (j<3)
@@ -114,5 +106,14 @@ void Porcentajs (int Notas[3][5], int cont, float Porcentaje[4])
             Porcentaje[j]=(cont*100)/5;
             j++;
         }
+}
+
+void PorcenGeneral (float Suma1, float Promedios[4])
+{
+    for(int i=0; i<5; i++)
+        {
+            Suma1=Suma1+Promedios[i];
+        }
+        printf("Promedio general: %.1f\n\n", Suma1/5);
 }
 
